@@ -1,4 +1,4 @@
-import Alunno from '/Alunno';
+import Alunno from './Alunno.js';
 import {useState,useEffect} from 'react';
 
 function App() {
@@ -10,7 +10,7 @@ function App() {
   const [pronto,setpronto]=useState(false);
 
   async function popolaAlunni(){
-    const response= await fetch("https://localhost:8080/alunni",{method: "GET"});
+    const response= await fetch("http://localhost:8080/alunni",{method: "GET"});
     const array = await response.json();
 
     setAlunni(array);
@@ -20,10 +20,10 @@ function App() {
   return (
     <div className="App">
       {
-        pronto?
-          alunni.map(a=>{
+        pronto ?
+          alunni.map(a=> (
             <Alunno alunno={a} popolaAlunni={popolaAlunni} key={a.id} />
-          })
+          ))
           :
           <div>Loading ...</div>
       }
