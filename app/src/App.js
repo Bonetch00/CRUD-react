@@ -1,5 +1,7 @@
+import './App.css';
 import Alunno from './Alunno.js';
 import {useState,useEffect} from 'react';
+import FormInserimento from './FormInserimento';
 
 function App() {
   useEffect(()=>{
@@ -8,6 +10,7 @@ function App() {
 
   const [alunni,setAlunni]=useState([]);
   const [pronto,setpronto]=useState(false);
+  const [mostraForm,setMostraForm]=useState(false);
 
   async function popolaAlunni(){
     const response= await fetch("http://localhost:8080/alunni",{method: "GET"});
@@ -27,6 +30,16 @@ function App() {
           :
           <div>Loading ...</div>
       }
+
+      <button onClick={()=>setMostraForm(true)}>Inserisci un alunno</button>
+      {mostraForm &&
+        <div>
+          <FormInserimento popolaAlunni={popolaAlunni}/>
+          <button onClick={()=>setMostraForm(false)}>Annulla inserimento</button>
+        </div>
+        
+      }
+
     </div>
   );
 }
